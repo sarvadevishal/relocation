@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Relocation Command Center</title>
+    <link rel="icon" href="https://example.com/path/to/your/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* CSS Variables for a streamlined design system */
+        :root {
+            --primary-blue: #0A3D62; /* Deep Professional Blue */
+            --secondary-blue: #1C8EF0; /* Actionable Blue */
+            --light-bg: #F8F9FA; /* Off-white for sections */
+            --card-bg: #FFFFFF;
+            --border-color: #E0E6EB;
+            --text-dark: #333333;
+            --text-medium: #6B7280;
+            --text-light: #A0AEC0;
+            --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.06);
+            --shadow-card: 0 6px 16px rgba(0, 0, 0, 0.08);
+
+            /* Status Colors (Adjusted for WCAG AA contrast) */
+            --status-success: #28A745; /* Green */
+            --status-info: #17A2B8;    /* Teal */
+            --status-warning: #CC8400; /* Darker Yellow-Orange for contrast */
+            --status-danger: #B22222; /* Darker Red for contrast */
+            --status-at-risk: #D46A00; /* Darker Orange for contrast */
+            --status-pending: #6C757D; /* Grayish */
+            --status-not-started: #5A6268; /* Darker Gray for contrast */
+            --status-in-progress: #520DC2; /* Darker Purple for contrast */
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-size: clamp(0.9rem, 0.8vw + 0.5rem, 1rem); /* Responsive typography */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth theme transition */
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 30px auto;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow-subtle);
+            padding: 40px;
+            overflow: hidden;
+            border: 1px solid var(--border-color); /* Subtle border for definition */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Header Area */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid var(--border-color);
+            background: linear-gradient(145deg, #fefefe, var(--light-bg));
+            border-radius: 12px;
+            padding-top: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+            transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .header h1 {
+            color: var(--primary-blue);
+            font-size: clamp(2.5em, 5vw + 1rem, 3.2em); /* Responsive typography */
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: -0.8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s ease;
+        }
+        .header h1 i {
+            margin-right: 15px;
+            font-size: 0.9em;
+            color: var(--secondary-blue);
+            transition: color 0.3s ease;
+        }
+        .header p {
+            color: var(--text-medium);
+            font-size: clamp(0.9em, 1.5vw + 0.5rem, 1.1em); /* Responsive typography */
+            margin-top: 10px;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+        .header .live-snapshot { /* Corrected class selector */
+            font-size: 0.9em;
+            color: var(--text-light);
+            margin-top: 5px;
+            transition: color 0.3s ease;
+        }
+
+        /* Overall Status */
+        .overall-status {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.5em;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: color 0.3s ease;
+        }
+        .overall-status .status-badge { /* Corrected class selector */
+            font-size: 1.2em;
+            padding: 10px 25px;
+            border-radius: 50px; /* More rounded pill shape */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            animation: pulse 2s infinite ease-in-out; /* Subtle animation */
+        }
+        .overall-status .status-badge i {
+            margin-right: 10px;
+            font-size: 0.9em;
+        }
+
+        /* Section Headings */
+        h2 {
+            color: var(--primary-blue);
+            margin-top: 50px;
+            margin-bottom: 30px;
+            font-size: clamp(1.8em, 3vw + 1rem, 2.2em); /* Responsive typography */
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+        h2 i {
+            margin-right: 15px;
+            color: var(--secondary-blue);
+            font-size: 0.9em;
+            transition: color 0.3s ease;
+        }
+        h2::after { /* Modern underline */
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 70px;
+            height: 4px;
+            background-color: var(--secondary-blue);
+            border-radius: 2px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Key Information Grid */
+        .key-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .info-card {
+            background-color: var(--light-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease-in-out;
+            display: flex;
+            align-items: flex-start;
+        }
+        .info-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--secondary-blue);
+        }
+        .info-card i {
+            font-size: 2em;
+            color: var(--primary-blue);
+            margin-right: 20px;
+            flex-shrink: 0;
+            padding-top: 5px; /* Adjust vertical alignment */
+            transition: color 0.3s ease;
+        }
+        .info-card-content strong {
+            display: block;
+            font-size: 1.15em;
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .info-card-content span {
+            font-size: 0.95em;
+            color: var(--text-medium);
+            transition: color 0.3s ease;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8em;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            white-space: nowrap; /* Prevent badge text from wrapping */
+        }
+        .status-badge i {
+            margin-right: 8px;
+            font-size: 0.8em;
+        }
+
+        /* Specific Status Colors */
+        .status-success { background-color: var(--status-success); }
+        .status-info { background-color: var(--status-info); }
+        .status-warning { background-color: var(--status-warning); color: white; } /* Changed text color for contrast */
+        .status-danger { background-color: var(--status-danger); }
+        .status-at-risk { background-color: var(--status-at-risk); }
+        .status-pending { background-color: var(--status-pending); }
+        .status-not-started { background-color: var(--status-not-started); }
+        .status-in-progress { background-color: var(--status-in-progress); }
+
+        /* Tables - Modern & Responsive */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 25px;
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow-card);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        th, td {
+            padding: 18px 25px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            transition: border-color 0.3s ease;
+        }
+        th {
+            background-color: var(--primary-blue);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        tr:nth-child(even) {
+            background-color: #FDFEFE; /* Very subtle alternating row color */
+            transition: background-color 0.3s ease;
+        }
+        tr:hover {
+            background-color: #F0F6F9; /* Highlight on hover */
+            cursor: pointer; /* Implies clickability */
+            transition: background-color 0.3s ease;
+        }
+        td .status-badge { /* Specificity for badges within tables */
+            margin: 0;
+        }
+        
+        /* Table Column Specifics */
+        .notes-column, .mitigation-column {
+            font-size: 0.9em;
+            color: var(--text-medium);
+            line-height: 1.4;
+            transition: color 0.3s ease;
+        }
+        .date-column {
+            white-space: nowrap;
+            font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+            font-size: 0.88em;
+            color: var(--primary-blue);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .phone-link {
+            text-decoration: none;
+            color: var(--secondary-blue);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .phone-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Risk Assessment Table */
+        .risk-impact-high { background-color: #FAE5E6; } /* Lighter red for row */
+        .risk-impact-medium { background-color: #FFF3E0; } /* Lighter orange for row */
+        .risk-impact-low { background-color: #E8F5E9; } /* Lighter green for row */
+        .risk-impact-cell { font-weight: bold; }
+        .risk-impact-cell.high { color: var(--status-danger); } /* Using status-danger for consistency */
+        .risk-impact-cell.medium { color: var(--status-warning); } /* Using status-warning for consistency */
+        .risk-impact-cell.low { color: var(--status-success); }
+        .risk-mitigation { font-style: italic; color: var(--text-medium); }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-medium);
+            font-size: 0.85em;
+            transition: border-color 0.3s ease, color 0.3s ease;
+        }
+        .footer i {
+            margin-right: 8px;
+            color: var(--secondary-blue);
+            transition: color 0.3s ease;
+        }
+
+        /* Keyframe for subtle pulse animation */
+        @keyframes pulse {
+            0% { box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); }
+            50% { box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); }
+            100% { box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); }
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #1a1a1a; /* Dark background */
+            color: #f0f0f0; /* Light text */
+        }
+        body.dark-mode .dashboard-container {
+            background-color: #2c2c2c;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border-color: #444;
+        }
+        body.dark-mode .header {
+            background: linear-gradient(145deg, #222, #1a1a1a);
+            border-color: #444;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        body.dark-mode .header h1 {
+            color: #66b3ff; /* Lighter blue for dark mode */
+        }
+        body.dark-mode .header h1 i {
+            color: #88ccee;
+        }
+        body.dark-mode .header p {
+            color: #ccc;
+        }
+        body.dark-mode .live-snapshot {
+            color: #aaa;
+        }
+        body.dark-mode .overall-status {
+            color: #f0f0f0;
+        }
+        body.dark-mode .overall-status .status-badge {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        body.dark-mode h2 {
+            color: #66b3ff;
+        }
+        body.dark-mode h2 i {
+            color: #88ccee;
+        }
+        body.dark-mode h2::after {
+            background-color: #88ccee;
+        }
+        body.dark-mode .info-card {
+            background-color: #3a3a3a;
+            border-color: #555;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        body.dark-mode .info-card:hover {
+            border-color: #88ccee;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+        body.dark-mode .info-card i {
+            color: #66b3ff;
+        }
+        body.dark-mode .info-card-content strong {
+            color: #f0f0f0;
+        }
+        body.dark-mode .info-card-content span {
+            color: #ccc;
+        }
+        body.dark-mode table {
+            background-color: #3a3a3a;
+            box-shadow: var(--shadow-card);
+        }
+        body.dark-mode th {
+            background-color: #0A3D62; /* Keep primary blue for headers or adjust */
+            color: white;
+        }
+        body.dark-mode td {
+            border-bottom-color: #555;
+        }
+        body.dark-mode tr:nth-child(even) {
+            background-color: #333; /* Darker subtle alternating row color */
+        }
+        body.dark-mode tr:hover {
+            background-color: #4a4a4a; /* Darker highlight on hover */
+        }
+        body.dark-mode .notes-column,
+        body.dark-mode .mitigation-column {
+            color: #ccc;
+        }
+        body.dark-mode .date-column {
+            color: #66b3ff;
+        }
+        body.dark-mode .phone-link {
+            color: #88ccee;
+        }
+        body.dark-mode .risk-impact-high { background-color: #5C1A1A; } /* Darker red for row */
+        body.dark-mode .risk-impact-medium { background-color: #5C4A1A; } /* Darker orange for row */
+        body.dark-mode .risk-impact-low { background-color: #1A5C1A; } /* Darker green for row */
+        body.dark-mode .risk-impact-cell.high { color: #FF6B6B; }
+        body.dark-mode .risk-impact-cell.medium { color: #FFD166; }
+        body.dark-mode .risk-impact-cell.low { color: #6BFF6B; }
+        body.dark-mode .footer {
+            border-top-color: #444;
+            color: #ccc;
+        }
+        body.dark-mode .footer i {
+            color: #88ccee;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle-button {
+            background-color: var(--secondary-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+            box-shadow: var(--shadow-subtle); /* Add shadow for better integration */
+        }
+        .theme-toggle-button:hover {
+            background-color: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+        body.dark-mode .theme-toggle-button {
+            background-color: #88ccee;
+            color: #1a1a1a;
+        }
+        body.dark-mode .theme-toggle-button:hover {
+            background-color: #66b3ff;
+        }
+
+        /* Relocation Timeline Visual Path */
+        .relocation-timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            position: relative;
+            padding: 20px 0;
+            width: 95%; /* Adjusted width for better spacing */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .relocation-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: var(--border-color);
+            z-index: 0;
+            border-radius: 2px;
+            transition: background-color 0.3s ease;
+        }
+
+        .timeline-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 10px; /* Add some padding to prevent overlap on smaller desktop views */
+            cursor: pointer; /* Indicate interactivity */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Add box-shadow transition */
+        }
+
+        .timeline-step:hover {
+            transform: translateY(-8px); /* Subtle lift on hover */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* Add shadow on hover */
+        }
+
+        .step-icon {
+            background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue)); /* Gradient background */
+            color: white;
+            border-radius: 50%;
+            width: 70px; /* Slightly larger icon */
+            height: 70px; /* Slightly larger icon */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.2em; /* Larger icon size */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Soft shadow */
+            border: 4px solid var(--card-bg); /* Thicker border */
+            transition: all 0.3s ease;
+        }
+
+        .step-icon:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25); /* Enhanced shadow on hover */
+            transform: scale(1.05); /* Slight scale for pop effect */
+        }
+
+        .step-label {
+            margin-top: 15px;
+            font-weight: 600;
+            color: var(--primary-blue);
+            font-size: 1em; /* Slightly larger font */
+            white-space: nowrap;
+            transition: color 0.3s ease;
+        }
+
+        /* Dark mode adjustments for timeline */
+        body.dark-mode .relocation-timeline::before {
+            background-color: #555;
+        }
+        body.dark-mode .step-icon {
+            background: linear-gradient(135deg, #88ccee, #66b3ff); /* Dark mode gradient */
+            color: #1a1a1a;
+            border-color: #2c2c2c;
+        }
+        body.dark-mode .step-icon:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        body.dark-mode .step-label {
+            color: #f0f0f0;
+        }
+
+        /* Accordion Styles */
+        .accordion-item {
+            background-color: var(--card-bg); /* Changed to card-bg for consistency */
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-subtle);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        body.dark-mode .accordion-item {
+            background-color: #3a3a3a;
+            border-color: #555;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .accordion-header {
+            display: flex;
+            align-items: center;
+            padding: 25px;
+            cursor: pointer;
+            font-size: 1.4em;
+            font-weight: 600;
+            color: var(--primary-blue);
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            user-select: none; /* Prevent text selection on click */
+        }
+        body.dark-mode .accordion-header {
+            background-color: #2c2c2c;
+            color: #66b3ff;
+            border-bottom-color: #444;
+        }
+        .accordion-header:hover {
+            background-color: #F0F6F9;
+        }
+        body.dark-mode .accordion-header:hover {
+            background-color: #4a4a4a;
+        }
+
+        .accordion-header i {
+            margin-right: 15px;
+            color: var(--secondary-blue);
+            transition: transform 0.3s ease;
+        }
+        .accordion-header.active i {
+            transform: rotate(90deg); /* Rotate arrow when active */
+        }
+        body.dark-mode .accordion-header i {
+            color: #88ccee;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+            padding: 0 25px;
+        }
+        .accordion-content.open {
+            max-height: 1000px; /* Arbitrarily large value to allow content to expand */
+            padding: 25px;
+        }
+
+        .accordion-content p, .accordion-content ul, .accordion-content table { /* Combined selectors */
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+        body.dark-mode .accordion-content p,
+        body.dark-mode .accordion-content ul,
+        body.dark-mode .accordion-content table {
+            color: #f0f0f0;
+        }
+        .accordion-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .accordion-content ul li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .accordion-content ul li i {
+            margin-right: 10px;
+            color: var(--secondary-blue);
+            flex-shrink: 0;
+            padding-top: 4px;
+        }
+        body.dark-mode .accordion-content ul li i {
+            color: #88ccee;
+        }
+
+        .accordion-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .accordion-content th, .accordion-content td { /* Combined selectors */
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+            font-size: 0.9em;
+        }
+        body.dark-mode .accordion-content th,
+        body.dark-mode .accordion-content td {
+            border-color: #555;
+        }
+        .accordion-content th {
+            background-color: var(--primary-blue);
+            color: white;
+            font-weight: 600;
+        }
+        body.dark-mode .accordion-content th {
+            background-color: #0A3D62;
+        }
+        .accordion-content tr:nth-child(even) {
+            background-color: #FDFEFE;
+        }
+        body.dark-mode .accordion-content tr:nth-child(even) {
+            background-color: #333;
+        }
+        .accordion-content tr:hover {
+            background-color: #F0F6F9;
+        }
+        body.dark-mode .accordion-content tr:hover {
+            background-color: #4a4a4a;
+        }
+        .accordion-content .note { /* Specificity for notes within accordion */
+            font-style: italic;
+            color: var(--status-warning);
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        body.dark-mode .accordion-content .note {
+            color: #FFD166;
+        }
+
+        /* Flight Rescheduling specific styles */
+        .flight-steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .flight-step-card {
+            background-color: var(--light-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.2s ease-in-out;
+        }
+        .flight-step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: var(--secondary-blue);
+        }
+        body.dark-mode .flight-step-card {
+            background-color: #2c2c2c;
+            border-color: #555;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        body.dark-mode .flight-step-card:hover {
+            border-color: #88ccee;
+        }
+
+        .flight-step-card .icon {
+            font-size: 2.5em;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+        body.dark-mode .flight-step-card .icon {
+            color: #66b3ff;
+        }
+        .flight-step-card h4 {
+            font-size: 1.2em;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+        body.dark-mode .flight-step-card h4 {
+            color: #f0f0f0;
+        }
+        .flight-step-card p {
+            font-size: 0.9em;
+            color: var(--text-medium);
+            margin: 0;
+        }
+        body.dark-mode .flight-step-card p {
+            color: #ccc;
+        }
+
+        .cost-comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .cost-card {
+            background-color: var(--light-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.2s ease-in-out;
+        }
+        .cost-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        body.dark-mode .cost-card {
+            background-color: #2c2c2c;
+            border-color: #555;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+        body.dark-mode .cost-card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .cost-card .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        .cost-card.reschedule .icon { color: var(--secondary-blue); }
+        .cost-card.rebook .icon { color: var(--status-danger); }
+        body.dark-mode .cost-card.reschedule .icon { color: #88ccee; }
+        body.dark-mode .cost-card.rebook .icon { color: #FF6B6B; }
+
+        .cost-card h4 {
+            font-size: 1.5em;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+        body.dark-mode .cost-card h4 {
+            color: #f0f0f0;
+        }
+        .cost-card p {
+            font-size: 1em;
+            color: var(--text-medium);
+            margin-bottom: 15px;
+        }
+        body.dark-mode .cost-card p {
+            color: #ccc;
+        }
+        .cost-card strong {
+            font-size: 1.1em;
+            color: var(--text-dark);
+        }
+        body.dark-mode .cost-card strong {
+            color: #f0f0f0;
+        }
+
+        .action-button {
+            background-color: var(--secondary-blue);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .action-button:hover {
+            background-color: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+        body.dark-mode .action-button {
+            background-color: #88ccee;
+            color: #1a1a1a;
+        }
+        body.dark-mode .action-button:hover {
+            background-color: #66b3ff;
+        }
+
+        /* Car Shipping Calculator UI */
+        .car-calculator-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+            gap: 20px;
+            padding: 20px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-subtle);
+            margin-top: 20px;
+        }
+        body.dark-mode .car-calculator-form {
+            background-color: #3a3a3a;
+            border-color: #555;
+        }
+
+        .car-calculator-form .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .car-calculator-form label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary-blue);
+        }
+        body.dark-mode .car-calculator-form label {
+            color: #f0f0f0;
+        }
+
+        .car-calculator-form input[type="text"],
+        .car-calculator-form select {
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1em;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        body.dark-mode .car-calculator-form input[type="text"],
+        body.dark-mode .car-calculator-form select {
+            background-color: #2c2c2c;
+            border-color: #555;
+            color: #f0f0f0;
+        }
+
+        .car-calculator-form input[type="text"]:focus,
+        .car-calculator-form select:focus {
+            outline: none;
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 3px rgba(28, 142, 240, 0.2);
+        }
+
+        .car-calculator-form button {
+            background-color: var(--secondary-blue);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .car-calculator-form button:hover {
+            background-color: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+        body.dark-mode .car-calculator-form button {
+            background-color: #88ccee;
+            color: #1a1a1a;
+        }
+        body.dark-mode .car-calculator-form button:hover {
+            background-color: #66b3ff;
+        }
+
+        .car-calculator-result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e8f5e9; /* Light green for success/info */
+            border: 1px solid #28a745;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #1a5c1a;
+            display: none; /* Hidden by default */
+            align-items: center;
+            gap: 15px;
+        }
+        body.dark-mode .car-calculator-result {
+            background-color: #1A5C1A;
+            border-color: #28A745;
+            color: #e8f5e9;
+        }
+        .car-calculator-result i {
+            font-size: 1.5em;
+            color: #28a745;
+        }
+        body.dark-mode .car-calculator-result i {
+            color: #e8f5e9;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 1200px) {
+            .dashboard-container {
+                margin: 25px auto;
+                padding: 30px;
+            }
+            .key-info-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            .cost-comparison-grid {
+                grid-template-columns: 1fr; /* Stack on smaller screens */
+            }
+        }
+        @media (max-width: 768px) {
+            .dashboard-container {
+                margin: 15px;
+                padding: 20px;
+            }
+            .header h1 {
+                font-size: clamp(2em, 5vw + 1rem, 2.5em);
+            }
+            h2 {
+                font-size: clamp(1.5em, 3vw + 1rem, 1.8em);
+            }
+            .key-info-grid {
+                grid-template-columns: 1fr;
+            }
+            .info-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .info-card i {
+                margin-right: 0;
+                margin-bottom: 15px;
+                padding-top: 0;
+            }
+            th, td {
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+            table {
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            thead, tbody, th, td, tr {
+                display: block;
+            }
+            th {
+                text-align: right;
+            }
+            td {
+                text-align: right;
+                position: relative;
+                padding-left: 50%;
+            }
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 0;
+                width: 45%;
+                padding-left: 15px;
+                font-weight: bold;
+                text-align: left;
+                color: var(--text-dark);
+            }
+            body.dark-mode td::before {
+                color: #f0f0f0;
+            }
+
+            /* Responsive adjustments for timeline */
+            .relocation-timeline {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+                padding: 0 20px;
+            }
+            .relocation-timeline::before {
+                width: 4px;
+                height: calc(100% - 40px);
+                top: 20px;
+                left: 48px;
+                transform: translateX(-50%);
+            }
+            .timeline-step {
+                flex-direction: row;
+                justify-content: flex-start;
+                width: 100%;
+                margin-bottom: 20px;
+                padding-left: 0;
+                text-align: left;
+            }
+            .step-icon {
+                margin-right: 15px;
+                margin-bottom: 0;
+                flex-shrink: 0;
+                width: 50px; /* Smaller for mobile */
+                height: 50px; /* Smaller for mobile */
+                font-size: 1.8em;
+            }
+            .step-label {
+                text-align: left;
+                white-space: normal;
+                flex-grow: 1;
+                font-size: 0.9em;
+            }
+            .car-calculator-form {
+                grid-template-columns: 1fr;
+            }
+            .flight-steps-grid {
+                grid-template-columns: 1fr; /* Stack flight steps on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <header class="header">
+            <h1><i class="fas fa-chart-line"></i> Executive Relocation Dashboard</h1>
+            <p><strong>Seamless Transition Overview: Florida to California</strong></p>
+            <p class="live-snapshot">Live Snapshot: <span id="current-datetime"></span></p>
+            <button id="theme-toggle" class="theme-toggle-button" aria-label="Toggle Dark Mode">Toggle Dark Mode</button>
+        </header>
+
+        <section class="overall-status">
+            <p>Overall Relocation Health: <span class="status-badge status-warning"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Moderate Risk</span></p>
+        </section>
+
+        <section>
+            <h2><i class="fas fa-info-circle" aria-hidden="true"></i> Key Relocation Information</h2>
+            <div class="key-info-grid">
+                <div class="info-card">
+                    <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                    <div class="info-card-content">
+                        <strong>Origin & Final Destination</strong>
+                        <span>Land O' Lakes, FL <i class="fas fa-long-arrow-alt-right" aria-hidden="true"></i> Santa Clara, CA</span>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                    <div class="info-card-content">
+                        <strong>Residency Plan</strong>
+                        <span>Airbnb (5 Nights) <i class="fas fa-long-arrow-alt-right" aria-hidden="true"></i> Halford Gardens Apt</span>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                    <div class="info-card-content">
+                        <strong>Primary Travel Window</strong>
+                        <span>June 28 - July 3, 2025</span>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-users" aria-hidden="true"></i>
+                    <div class="info-card-content">
+                        <strong>Family Dynamics</strong>
+                        <span>5 Adults, 1 Infant (2.5 months)</span>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-briefcase" aria-hidden="true"></i>
+                    <div class="info-card-content">
+                        <strong>Wife's New Role</strong>
+                        <span>Marvell Technology Inc. (Joining: June 30, 2025)</span>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-laptop-code" aria-hidden="true"></i>
+                    <div class="info-card-content">
+                        <strong>Husband's Employment Status</strong>
+                        <span>Grid Dynamics (2-Week Remote Approved)</span>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-truck" aria-hidden="true"></i>
+                    <div class="info-card-content">
+                        <strong>Logistics Partner</strong>
+                        <span>Zippy Shell (FL Pickup: June 24, CA Est. Delivery: July 5)</span>
+                    </div>
+                </div>
+                   <div class="info-card">
+                    <i class="fas fa-car" aria-hidden="true"></i>
+                    <div class="info-card-content">
+                        <strong>Rental Vehicle Duration</strong>
+                        <span>Booked for 12 Days (Confirmation Pending)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2><i class="fas fa-route" aria-hidden="true"></i> Relocation Journey Overview</h2>
+            <div class="relocation-timeline">
+                <div class="timeline-step" data-target-section="critical-path-milestones" role="button" tabindex="0" aria-label="View Planning and Preparation Milestones">
+                    <div class="step-icon"><i class="fas fa-clipboard-list" aria-hidden="true"></i></div>
+                    <div class="step-label">Planning & Prep</div>
+                </div>
+                <div class="timeline-step" data-target-section="critical-path-milestones" role="button" tabindex="0" aria-label="View Packing and Logistics Milestones">
+                    <div class="step-icon"><i class="fas fa-box-open" aria-hidden="true"></i></div>
+                    <div class="step-label">Packing & Logistics</div>
+                </div>
+                <div class="timeline-step" data-target-section="critical-path-milestones" role="button" tabindex="0" aria-label="View Travel and Temporary Stay Milestones">
+                    <div class="step-icon"><i class="fas fa-plane-departure" aria-hidden="true"></i></div>
+                    <div class="step-label">Travel & Temp. Stay</div>
+                </div>
+                <div class="timeline-step" data-target-section="critical-path-milestones" role="button" tabindex="0" aria-label="View Permanent Housing Setup Milestones">
+                    <div class="step-icon"><i class="fas fa-building" aria-hidden="true"></i></div>
+                    <div class="step-label">Permanent Housing</div>
+                </div>
+                <div class="timeline-step" data-target-section="critical-path-milestones" role="button" tabindex="0" aria-label="View Settling In California Milestones">
+                    <div class="step-icon"><i class="fas fa-check-double" aria-hidden="true"></i></div>
+                    <div class="step-label">Settling in CA</div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section>
+            <div class="accordion-item">
+                <div class="accordion-header" data-target="flight-guide" role="button" aria-expanded="false" aria-controls="flight-guide" tabindex="0">
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    <h3>International Flight Rescheduling Guide: Emirates Airlines</h3>
+                </div>
+                <div class="accordion-content" id="flight-guide">
+                    <p>You initially booked flights with **Emirates from Orlando (MCO) to Hyderabad for August 30th.** With your relocation to California, you now need to reschedule these flights to depart from **San Francisco (SFO)**, with two adults flying to Hyderabad and one adult to Bangalore. Here's how to navigate this change:</p>
+                    
+                    <h4>Step-by-Step Guide for Emirates Flight Changes:</h4>
+                    <div class="flight-steps-grid">
+                        <div class="flight-step-card">
+                            <div class="icon"><i class="fas fa-headset" aria-hidden="true"></i></div>
+                            <h4>Contact Emirates Directly</h4>
+                            <p>Reach out to Emirates customer service or your travel agent immediately. Have your original booking reference, passenger names, and desired new dates/routes ready. They are the primary contact for modifications.</p>
+                        </div>
+                        <div class="flight-step-card">
+                            <div class="icon"><i class="fas fa-calendar-alt" aria-hidden="true"></i></div>
+                            <h4>Confirm New Itinerary</h4>
+                            <p>Clearly state the new departure airport (SFO) and the split destinations (Hyderabad for 2 adults, Bangalore for 1 adult). Be flexible with dates if possible, as this can affect availability and cost.</p>
+                        </div>
+                        <div class="flight-step-card">
+                            <div class="icon"><i class="fas fa-file-invoice-dollar" aria-hidden="true"></i></div>
+                            <h4>Understand Potential Costs</h4>
+                            <p>Emirates' policies vary by fare class. Be prepared for: <strong>Change Fees</strong> (if applicable per your fare rules) and <strong>Fare Difference</strong> (if the new SFO-India flights are more expensive).</p>
+                        </div>
+                        <div class="flight-step-card">
+                            <div class="icon"><i class="fas fa-clipboard-check" aria-hidden="true"></i></div>
+                            <h4>Receive Confirmation</h4>
+                            <p>Once changes are processed, ensure you receive new e-tickets with the updated itinerary and payment details. Verify all passenger names, dates, times, and destinations carefully.</p>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-top: 40px;">Cost Analysis: Rescheduling vs. Rebooking</h4>
+                    <p>It's vital to compare the total cost of rescheduling your existing Emirates tickets (change fees + fare difference) versus canceling them and buying entirely new tickets from SFO. Sometimes, purchasing new tickets can be more economical.</p>
+                    <div class="cost-comparison-grid">
+                        <div class="cost-card reschedule">
+                            <div class="icon"><i class="fas fa-arrow-right-arrow-left" aria-hidden="true"></i></div>
+                            <h4>Reschedule Existing Emirates Tickets</h4>
+                            <p><strong>Cost Implications:</strong> Emirates Change Fee (varies by fare class, potentially $0 - $400+) + Fare Difference (if SFO-India flight price is higher than original MCO-Hyderabad).</p>
+                            <strong>Recommendation:</strong> Preferable if your original fare allows for low change fees and the new SFO flights are not significantly more expensive. Simpler process.
+                        </div>
+                        <div class="cost-card rebook">
+                            <div class="icon"><i class="fas fa-ticket-alt" aria-hidden="true"></i></div>
+                            <h4>Cancel & Rebook New Tickets</h4>
+                            <p><strong>Cost Implications:</strong> Potential Emirates Cancellation Fee (if applicable) + Full Cost of New SFO-Hyderabad/Bangalore Tickets. Original ticket value might be lost or issued as future flight credit.</p>
+                            <strong>Recommendation:</strong> Consider if rescheduling fees are very high, or if new, competitive fares are available that make rebooking more cost-effective overall.
+                        </div>
+                    </div>
+                    <p class="note" style="margin-top: 20px;"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> <strong>Important:</strong> Emirates' specific fare rules are key. Always check your original ticket terms and directly compare quotes for rescheduling vs. new purchases. Don't forget any potential travel insurance you might have!</p>
+                    <button class="action-button" onclick="window.open('https://www.emirates.com/us/english/help/change-cancel-flights/', '_blank')" aria-label="View Emirates Flight Change Policy">
+                        <i class="fas fa-info-circle" aria-hidden="true"></i> View Emirates Flight Change Policy
+                    </button>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" data-target="car-shipment-guide" role="button" aria-expanded="false" aria-controls="car-shipment-guide" tabindex="0">
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    <h3>Car Shipment: Florida to California (Mazda CX-5)</h3>
+                </div>
+                <div class="accordion-content" id="car-shipment-guide">
+                    <p>Your plan to store your **2021 Mazda CX-5 Carbon Edition with 2.5L Turbo engine** with colleagues until LCA approval is a smart approach. Here's what to consider when you're ready to ship your vehicle from Florida to California.</p>
+
+                    <h4>Get an Instant Quote for Your Mazda CX-5:</h4>
+                    <div class="car-calculator-form">
+                        <div class="form-group">
+                            <label for="car-make">Vehicle Make</label>
+                            <input type="text" id="car-make" value="Mazda" disabled aria-label="Vehicle Make: Mazda">
+                        </div>
+                        <div class="form-group">
+                            <label for="car-model">Vehicle Model</label>
+                            <input type="text" id="car-model" value="CX-5 Carbon Edition" disabled aria-label="Vehicle Model: CX-5 Carbon Edition">
+                        </div>
+                        <div class="form-group">
+                            <label for="car-year">Vehicle Year</label>
+                            <input type="text" id="car-year" value="2021" disabled aria-label="Vehicle Year: 2021">
+                        </div>
+                        <div class="form-group">
+                            <label for="transport-type">Transport Type</label>
+                            <select id="transport-type" aria-label="Select Transport Type">
+                                <option value="open">Open Carrier (Standard)</option>
+                                <option value="enclosed">Enclosed Carrier (Premium)</option>
+                            </select>
+                        </div>
+                        <button id="get-quote-btn" aria-label="Get Instant Car Shipping Quote">
+                            <i class="fas fa-calculator" aria-hidden="true"></i> Get Instant Quote
+                        </button>
+                    </div>
+                    <div class="car-calculator-result" id="car-quote-result" role="status" aria-live="polite">
+                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        <span id="quote-text"></span>
+                    </div>
+
+                    <h4>Recommended Car Shipping Services:</h4>
+                    <div class="table-responsive">
+                        <table>
+                            <caption>Top Car Shipping Companies (FL to CA)</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Company</th>
+                                    <th scope="col">Rating (Avg.)</th>
+                                    <th scope="col">Key Features/Pros</th>
+                                    <th scope="col">Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row" data-label="Company">Sherpa Auto Transport</th>
+                                    <td data-label="Rating (Avg.)">4.8/5</td>
+                                    <td data-label="Key Features/Pros">Price Lock Promise, no upfront deposit, $100k cargo insurance, free car wash at delivery. Customer-focused.</td>
+                                    <td data-label="Notes" class="notes-column">Top choice for affordability, service, and satisfaction.</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" data-label="Company">Montway Auto Transport</th>
+                                    <td data-label="Rating (Avg.)">Highly Rated</td>
+                                    <td data-label="Key Features/Pros">Competitive pricing, easy booking, additional insurance on every shipment. Preferred by corporate relocation companies.</td>
+                                    <td data-label="Notes" class="notes-column">Number one spot in auto transport for some.</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" data-label="Company">Nexus Auto Transport</th>
+                                    <td data-label="Rating (Avg.)">4.7/5</td>
+                                    <td data-label="Key Features/Pros">Network of 30,000+ carriers, user-friendly online quotes, refundable $25 deposit.</td>
+                                    <td data-label="Notes" class="notes-column">Trusted name in vehicle shipping across the US.</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" data-label="Company">Navi Auto Transport</th>
+                                    <td data-label="Rating (Avg.)">Strong Ratings</td>
+                                    <td data-label="Key Features/Pros">Reliable scheduling, attentive customer support, transparent pricing. Nationwide service.</td>
+                                    <td data-label="Notes" class="notes-column">Experienced company with strong customer satisfaction.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4>Approximate Cost & Timeline for Mazda CX-5:</h4>
+                    <ul>
+                        <li><i class="fas fa-dollar-sign" aria-hidden="true"></i> <strong>Estimated Cost (FL to CA):</strong>
+                            <ul>
+                                <li><i class="fas fa-truck-moving" aria-hidden="true"></i> Open Carrier: **$1,800 – $2,600**</li>
+                                <li><i class="fas fa-truck-ramp-box" aria-hidden="true"></i> Enclosed Carrier: **$2,500 – $3,500**</li>
+                                <li><em>Note:</em> These are estimates for a compact SUV like your Mazda CX-5. Actual costs vary by exact locations, seasonality, and carrier availability.</li>
+                            </ul>
+                        </li>
+                        <li><i class="fas fa-clock" aria-hidden="true"></i> <strong>Estimated Transit Time:</strong> 7-15 days (cross-country)</li>
+                    </ul>
+
+                    <h4>Best Practices for Safe & Reliable Relocation:</h4>
+                    <ul>
+                        <li><i class="fas fa-shield-alt" aria-hidden="true"></i> <strong>Choose Vetted Carriers:</strong> Ensure the company is FMCSA-licensed, bonded, and insured.</li>
+                        <li><i class="fas fa-comments" aria-hidden="true"></i> <strong>Check Reviews:</strong> Look for real customer reviews and transparent pricing.</li>
+                        <li><i class="fas fa-calendar-check" aria-hidden="true"></i> <strong>Flexible Dates:</strong> Being flexible with shipping dates can help match your car with efficient routes and potentially save money.</li>
+                        <li><i class="fas fa-car-battery" aria-hidden="true"></i> <strong>Vehicle Condition:</strong> Ensure your car is running, braking, and steering properly to avoid extra fees for inoperable vehicles.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" data-target="usps-forwarding-guide" role="button" aria-expanded="false" aria-controls="usps-forwarding-guide" tabindex="0">
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    <h3>USPS Address Forwarding Guide</h3>
+                </div>
+                <div class="accordion-content" id="usps-forwarding-guide">
+                    <h4>Actionable Steps for Mail Forwarding:</h4>
+                    <ul>
+                        <li><i class="fas fa-user-check" aria-hidden="true"></i> <strong>Leverage Relocation Benefit:</strong> Utilize your wife's relocation portal for complimentary USPS address change.</li>
+                        <li><i class="fas fa-id-card" aria-hidden="true"></i> <strong>Identity Verification:</strong> Complete necessary identity verification through the portal's process.</li>
+                        <li><i class="fas fa-envelope-open-text" aria-hidden="true"></i> <strong>Monitor Confirmations:</strong> Expect a Move Validation letter at your old address and a welcome kit with a confirmation code at your new Santa Clara address.</li>
+                        <li><i class="fas fa-sync-alt" aria-hidden="true"></i> <strong>Mail Redirection:</strong> Mail will be automatically rerouted to your new address.</li>
+                    </ul>
+                    <p class="note"><i class="fas fa-info-circle" aria-hidden="true"></i> <strong>Important:</strong> Follow your wife's relocation portal's specific instructions to ensure seamless, free mail forwarding once you are in Santa Clara.</p>
+                    <button class="action-button" onclick="window.open('https://www.usps.com/manage/forward.htm', '_blank')" aria-label="Visit Official USPS Change of Address Portal">
+                        <i class="fas fa-link" aria-hidden="true"></i> Visit Official USPS Portal
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="critical-path-milestones">
+            <h2><i class="fas fa-tasks" aria-hidden="true"></i> Critical Path Milestones (Timeline)</h2>
+            <table>
+                <caption>Critical Path Milestones Timeline</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Milestone</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Ordered chronologically and by priority -->
+                    <tr>
+                        <th scope="row" data-label="Milestone">**Confirm Car Rental Van (SJC)**</th>
+                        <td data-label="Date" class="date-column">June 23, 2025 05:00 PM</td>
+                        <td data-label="Status"><span class="status-badge status-danger"><i class="fas fa-exclamation-circle" aria-hidden="true"></i> URGENT PENDING</span></td>
+                        <td data-label="Notes" class="notes-column">**CRITICAL:** Follow up relentlessly via Point C. Have direct rental agency backup plan. Rental for 12 days.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">Schedule Townhome Cleaning (FL)</th>
+                        <td data-label="Date" class="date-column">June 23, 2025 05:00 PM</td>
+                        <td data-label="Status"><span class="status-badge status-pending"><i class="fas fa-hourglass-half" aria-hidden="true"></i> Pending</span></td>
+                        <td data-label="Notes" class="notes-column">Must be completed *before* June 25th rental paperwork.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">Prepare for FL Rental Paperwork</th>
+                        <td data-label="Date" class="date-column">June 24, 2025 05:00 PM</td>
+                        <td data-label="Status"><span class="status-badge status-pending"><i class="fas fa-hourglass-half" aria-hidden="true"></i> Pending</span></td>
+                        <td data-label="Notes" class="notes-column">Gather all necessary documents for Crystal's visit.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">Zippy Shell Pickup (FL)</th>
+                        <td data-label="Date" class="date-column">June 24, 2025</td>
+                        <td data-label="Status"><span class="status-badge status-success"><i class="fas fa-check-circle" aria-hidden="true"></i> On Track</span></td>
+                        <td data-label="Notes" class="notes-column">Packed & Ready</td>
+                    </tr>
+                     <tr>
+                        <th scope="row" data-label="Milestone">Land O' Lakes Rental Paperwork Finalized</th>
+                        <td data-label="Date" class="date-column">June 25, 2025</td>
+                        <td data-label="Status"><span class="status-badge status-pending"><i class="fas fa-hourglass-half" aria-hidden="true"></i> Pending</span></td>
+                        <td data-label="Notes" class="notes-column">Crystal's visit confirmed.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">**SW Airlines Online Check-in**</th>
+                        <td data-label="Date" class="date-column">June 27, 2025 05:00 AM</td>
+                        <td data-label="Status"><span class="status-badge status-info"><i class="fas fa-check-double" aria-hidden="true"></i> Due Soon</span></td>
+                        <td data-label="Notes" class="notes-column">Check-in exactly 24 hours before 5 AM EST flight. Get boarding passes ready.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">Secure Essential Docs/Valuables (Carry-On)</th>
+                        <td data-label="Date" class="date-column">June 27, 2025 05:00 PM</td>
+                        <td data-label="Status"><span class="status-badge status-success"><i class="fas fa-check-circle" aria-hidden="true"></i> Complete</span></td>
+                        <td data-label="Notes" class="notes-column">In flight carry-on. **DO NOT SHIP.**</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">Pack Infant Travel Bag</th>
+                        <td data-label="Date" class="date-column">June 27, 2025 05:00 PM</td>
+                        <td data-label="Status"><span class="status-badge status-in-progress"><i class="fas fa-spinner" aria-hidden="true"></i> In Progress</span></td>
+                        <td data-label="Notes" class="notes-column">Ample supplies for flight & first 48 hrs in CA.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">**Coordinate Car Storage (FL)**</th>
+                        <td data-label="Date" class="date-column">June 28, 2025</td>
+                        <td data-label="Status"><span class="status-badge status-success"><i class="fas fa-check-circle" aria-hidden="true"></i> On Track</span></td>
+                        <td data-label="Notes" class="notes-column">Car to be kept with colleagues from June 28th. Confirm logistics.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">Flight Departure (TPA)</th>
+                        <td data-label="Date" class="date-column">June 28, 2025</td>
+                        <td data-label="Status"><span class="status-badge status-info"><i class="fas fa-plane" aria-hidden="true"></i> Booked</span></td>
+                        <td data-label="Notes" class="notes-column">Early morning departure (5 AM EST).</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">SJC Arrival & Car Rental Pickup</th>
+                        <td data-label="Date" class="date-column">June 28, 2025</td>
+                        <td data-label="Status"><span class="status-badge status-at-risk"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> At Risk</span></td>
+                        <td data-label="Notes" class="notes-column">**CRITICAL: CAR RENTAL CONFIRMATION PENDING (12 Days).**</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">Airbnb Check-in</th>
+                        <td data-label="Date" class="date-column">June 28, 2025</td>
+                        <td data-label="Status"><span class="status-badge status-info"><i class="fas fa-house-user" aria-hidden="true"></i> Booked</span></td>
+                        <td data-label="Notes" class="notes-column">Check-in 4 PM PST.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">Wife's Job Start (Marvell)</th>
+                        <td data-label="Date" class="date-column">June 30, 2025</td>
+                        <td data-label="Status"><span class="status-badge status-success"><i class="fas fa-briefcase" aria-hidden="true"></i> On Track</span></td>
+                        <td data-label="Notes" class="notes-column">Marvell Technology Inc.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">**Coordinate Medical Insurance Transfer (CA)**</th>
+                        <td data-label="Date" class="date-column">June 30, 2025 (Onboarding Day)</td>
+                        <td data-label="Status"><span class="status-badge status-not-started"><i class="fas fa-circle" aria-hidden="true"></i> Not Started</span></td>
+                        <td data-label="Notes" class="notes-column">Add Husband, Wife, and Baby to Marvell's insurance. Husband to remove benefits from Grid Dynamics.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">**Disconnect FL Utilities & Close Accounts**</th>
+                        <td data-label="Date" class="date-column">June 30, 2025 (Target)</td>
+                        <td data-label="Status"><span class="status-badge status-pending"><i class="fas fa-power-off" aria-hidden="true"></i> Pending</span></td>
+                        <td data-label="Notes" class="notes-column">Water, Electricity, Gas, Internet. Ensure final bills are processed.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">**Final Townhome Walkthrough & Lease Closeout (FL)**</th>
+                        <td data-label="Date" class="date-column">June 30, 2025 (Target)</td>
+                        <td data-label="Status"><span class="status-badge status-pending"><i class="fas fa-handshake" aria-hidden="true"></i> Pending</span></td>
+                        <td data-label="Notes" class="notes-column">Coordinate final inspection with landlord/property management. Ensure deposit return process is clear.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">Utilities Activation (Electric/Gas)</th>
+                        <td data-label="Date" class="date-column">July 1, 2025</td>
+                        <td data-label="Status"><span class="status-badge status-at-risk"><i class="fas fa-bolt" aria-hidden="true"></i> At Risk</span></td>
+                        <td data-label="Notes" class="notes-column">**CRITICAL for apartment move-in. Action pending.**</td>
+                    </tr>
+                     <tr>
+                        <th scope="row" data-label="Milestone">Renter's Insurance Obtained</th>
+                        <td data-label="Date" class="date-column">July 1, 2025</td>
+                        <td data-label="Status"><span class="status-badge status-at-risk"><i class="fas fa-shield-alt" aria-hidden="true"></i> At Risk</span></td>
+                        <td data-label="Notes" class="notes-column">**CRITICAL: NO MOVE-IN WITHOUT THIS.**</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">**Setup California Internet/Cable**</th>
+                        <td data-label="Date" class="date-column">July 1, 2025 (Target)</td>
+                        <td data-label="Status"><span class="status-badge status-not-started"><i class="fas fa-wifi" aria-hidden="true"></i> Not Started</span></td>
+                        <td data-label="Notes" class="notes-column">Crucial for husband's remote work setup and family connectivity.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">Apartment Move-In (Halford Gardens)</th>
+                        <td data-label="Date" class="date-column">July 3, 2025</td>
+                        <td data-label="Status"><span class="status-badge status-not-started"><i class="fas fa-door-open" aria-hidden="true"></i> Not Started</span></td>
+                        <td data-label="Notes" class="notes-column">Lease signed. No move on July 2nd.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">Zippy Shell Delivery (Est.)</th>
+                        <td data-label="Date" class="date-column">July 5, 2025</td>
+                        <td data-label="Status"><span class="status-badge status-not-started"><i class="fas fa-truck-loading" aria-hidden="true"></i> Not Started</span></td>
+                        <td class="notes-column">Within 10 business days. Follow up with Zippy Shell.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">**USPS Mail Forwarding Setup (Perm. Address)**</th>
+                        <td data-label="Date" class="date-column">Post-July 3</td>
+                        <td data-label="Status"><span class="status-badge status-pending"><i class="fas fa-hourglass-half" aria-hidden="true"></i> Pending</span></td>
+                        <td data-label="Notes" class="notes-column">Set up forwarding from FL to 1901 Halford Ave, Santa Clara. **Wife's relocation benefit portal provides free service.**</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">**Enroll Baby's Pediatrician (CA)**</th>
+                        <td data-label="Date" class="date-column">Post-July 3</td>
+                        <td data-label="Status"><span class="status-badge status-not-started"><i class="fas fa-circle" aria-hidden="true"></i> Not Started</span></td>
+                        <td data-label="Notes" class="notes-column">Crucial for ongoing infant health post-settlement.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">**Update Driving Licenses (CA Address)**</th>
+                        <td data-label="Date" class="date-column">Post-July 3</td>
+                        <td data-label="Status"><span class="status-badge status-not-started"><i class="fas fa-circle" aria-hidden="true"></i> Not Started</span></td>
+                        <td data-label="Notes" class="notes-column">Both driver's licenses need address changes to CA permanent address.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">**Register Vehicles in California**</th>
+                        <td data-label="Date" class="date-column">Post-July 3</td>
+                        <td data-label="Status"><span class="status-badge status-not-started"><i class="fas fa-car-side" aria-hidden="true"></i> Not Started</span></td>
+                        <td data-label="Notes" class="notes-column">Transfer FL vehicle registrations to CA and obtain new CA insurance policies.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">**Update Banking & Financial Addresses**</th>
+                        <td data-label="Date" class="date-column">Post-July 3</td>
+                        <td data-label="Status"><span class="status-badge status-not-started"><i class="fas fa-university" aria-hidden="true"></i> Not Started</span></td>
+                        <td data-label="Notes" class="notes-column">Notify banks, credit card companies, and investment firms of new CA address.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">Marvell HR/Benefits Enrollment</th>
+                        <td data-label="Date" class="date-column">Ongoing</td>
+                        <td data-label="Status"><span class="status-badge status-not-started"><i class="fas fa-circle" aria-hidden="true"></i> Not Started</span></td>
+                        <td data-label="Notes" class="notes-column">Follow up on all new hire benefits, especially health insurance.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">**Reschedule Flights (SFO to Hyderabad - Husband's Mother & Father)**</th>
+                        <td data-label="Date" class="date-column">Aug 30, 2025 (Target)</td>
+                        <td data-label="Status"><span class="status-badge status-danger"><i class="fas fa-exclamation-circle" aria-hidden="true"></i> URGENT PENDING</span></td>
+                        <td data-label="Notes" class="notes-column">Cancel Orlando flights. Coordinate new flights from SFO to Hyderabad for Husband's Mother and Father.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">**Reschedule Flight (SFO to Bangalore - Wife's Mother)**</th>
+                        <td data-label="Date" class="date-column">Aug 30, 2025 (Target)</td>
+                        <td data-label="Status"><span class="status-badge status-danger"><i class="fas fa-exclamation-circle" aria-hidden="true"></i> URGENT PENDING</span></td>
+                        <td data-label="Notes" class="notes-column">Cancel Orlando flight. Coordinate new flight from SFO to Bangalore for Wife's Mother.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">**LCA Amendment Status Check (Husband)**</th>
+                        <td data data-label="Date" class="date-column">June 10, 2025 (Target)</td>
+                        <td data-label="Status"><span class="status-badge status-at-risk"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> At Risk</span></td>
+                        <td data-label="Notes" class="notes-column">Verify receipt number for permanent LCA amendment filing by target date. Critical for long-term remote work.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">**Plan Car Shipment (FL to CA)**</th>
+                        <td data-label="Date" class="date-column">Post-LCA Approval/Receipt</td>
+                        <td data-label="Status"><span class="status-badge status-not-started"><i class="fas fa-circle" aria-hidden="true"></i> Not Started</span></td>
+                        <td data-label="Notes" class="notes-column">Initiate car shipment process after LCA amendment receipt. Research shipping companies.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2><i class="fas fa-phone-alt" aria-hidden="true"></i> Key Contacts & Resources</h2>
+            <table>
+                <caption>Key Contacts and Resources</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Service/Contact</th>
+                        <th scope="col">Phone Number</th>
+                        <th scope="col">Available Hours (PST)</th>
+                        <th scope="col">Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row" data-label="Service/Contact">Santa Clara Utilities (Electricity)</th>
+                        <td data-label="Phone Number"><a href="tel:+14086152300" class="phone-link">408-615-2300</a></td>
+                        <td data-label="Available Hours (PST)">Mon-Fri, 8 AM - 5 PM</td>
+                        <td data-label="Notes" class="notes-column">For temporary number.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Service/Contact">PG&E Regional Center (Gas)</th>
+                        <td data-label="Phone Number"><a href="tel:+18007435000" class="phone-link">800-743-5000</a></td>
+                        <td data-label="Available Hours (PST)">Mon-Fri, 7 AM - 7 PM</td>
+                        <td data-label="Notes" class="notes-column">For account number.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Service/Contact">Resident Shield (Renter's Insurance)</th>
+                        <td data-label="Phone Number"><a href="tel:+18005661186" class="phone-link">800-566-1186</a></td>
+                        <td data-label="Available Hours (PST)">Mon-Fri, 7:30 AM - 7 PM CST</td>
+                        <td data-label="Notes" class="notes-column">Web: <a href="https://www.residentshield.com" target="_blank">www.residentshield.com</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Service/Contact">Zippy Shell (Logistics)</th>
+                        <td data-label="Phone Number"><a href="tel:+18889477974" class="phone-link">888-947-7974</a></td>
+                        <td data-label="Available Hours (PST)">Mon-Fri, 5 AM - 7 PM</td>
+                        <td data-label="Notes" class="notes-column">For pickup/delivery coordination.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Service/Contact">Halford Gardens Apartments</th>
+                        <td data-label="Phone Number">(From your lease)</td>
+                        <td data-label="Available Hours (PST)">(From your lease)</td>
+                        <td data-label="Notes" class="notes-column">For move-in coordination.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Service/Contact">Marvell Technology Inc. HR</th>
+                        <td data-label="Phone Number">(Wife's HR Contact)</td>
+                        <td data-label="Available Hours (PST)">Standard Business Hours</td>
+                        <td data-label="Notes" class="notes-column">Wife's employment details.</td>
+                    </tr>
+                     <tr>
+                        <th scope="row" data-label="Service/Contact">Grid Dynamics HR/Immigration</th>
+                        <td data-label="Phone Number">(Husband's HR Contact)</td>
+                        <td data-label="Available Hours (PST)">Standard Business Hours</td>
+                        <td data-label="Notes" class="notes-column">For LCA amendment status and remote work details.</td>
+                    </tr>
+                     <tr>
+                        <th scope="row" data-label="Service/Contact">Emirates Airlines</th>
+                        <td data-label="Phone Number"><a href="tel:+18007773999" class="phone-link">800-777-3999</a></td> <!-- US toll-free number -->
+                        <td data-label="Available Hours (PST)">24/7</td>
+                        <td data-label="Notes" class="notes-column">For flight rescheduling/support.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2><i class="fas fa-user-shield" aria-hidden="true"></i> Risk Assessment & Mitigations</h2>
+            <table>
+                <caption>Risk Assessment and Mitigations</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Risk</th>
+                        <th scope="col">Impact</th>
+                        <th scope="col">Mitigation Strategy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="risk-impact-high">
+                        <th scope="row" data-label="Risk">**Inability to Reschedule International Flights**</th>
+                        <td data-label="Impact" class="risk-impact-cell high">HIGH</td>
+                        <td data-label="Mitigation Strategy" class="notes-column risk-mitigation">Immediately contact Emirates/travel agent to confirm SFO flights. Explore alternative flights/airports if direct options are unavailable. Consider temporary accommodation if flights are significantly delayed.</td>
+                    </tr>
+                    <tr class="risk-impact-high">
+                        <th scope="row" data-label="Risk">**No Car Rental Confirmation**</th>
+                        <td data-label="Impact" class="risk-impact-cell high">HIGH</td>
+                        <td data-label="Mitigation Strategy" class="notes-column risk-mitigation">Immediately call Point C. Have direct rental agency (e.g., Enterprise, Hertz) reservation ready as backup. Consider ride-share for initial Airbnb trip if absolutely necessary. **Ensure 12-day rental is confirmed.**</td>
+                    </tr>
+                     <tr class="risk-impact-high">
+                        <th scope="row" data-label="Risk">**Husband's LCA Amendment Delay**</th>
+                        <td data-label="Impact" class="risk-impact-cell high">HIGH</td>
+                        <td data-label="Mitigation Strategy" class="notes-column risk-mitigation">Husband to maintain constant communication with Grid Dynamics HR/Immigration. Leverage 2-week remote work approval to buy time if receipt number is delayed.</td>
+                    </tr>
+                    <tr class="risk-impact-high">
+                        <th scope="row" data-label="Risk">Utilities Not Active on Move-in</th>
+                        <td data-label="Impact" class="risk-impact-cell high">HIGH</td>
+                        <td data-label="Mitigation Strategy" class="notes-column risk-mitigation">Prioritize calls to Santa Clara Utilities and PG&E on July 1st. Get confirmation numbers/account numbers.</td>
+                    </tr>
+                    <tr class="risk-impact-high">
+                        <th scope="row" data-label="Risk">No Renter's Insurance Policy</th>
+                        <td data-label="Impact" class="risk-impact-cell high">HIGH</td>
+                        <td data-label="Mitigation Strategy" class="notes-column risk-mitigation">Obtain policy on July 1st and have copy ready for Halford Gardens. Understand all policy requirements.</td>
+                    </tr>
+                    <tr class="risk-impact-high">
+                        <th scope="row" data-label="Risk">Gap in Medical Insurance Coverage</th>
+                        <td data-label="Impact" class="risk-impact-cell high">HIGH</td>
+                        <td data-label="Mitigation Strategy" class="notes-column risk-mitigation">Confirm Marvell's insurance effective date. Ensure no lapse in coverage between Grid Dynamics and Marvell. Have temporary plan if needed.</td>
+                    </tr>
+                    <tr class="risk-impact-high">
+                        <th scope="row" data-label="Risk">**Unforeseen Financial Costs**</th>
+                        <td data-label="Impact" class="risk-impact-cell high">HIGH</td>
+                        <td data-label="Mitigation Strategy" class="notes-column risk-mitigation">Research average cost of living in Santa Clara vs. Florida. Budget for initial setup costs (deposits, new furniture) and potential tax implications of state change.</td>
+                    </tr>
+                    <tr class="risk-impact-medium">
+                        <th scope="row" data-label="Risk">Issues with Car Storage or Shipment</th>
+                        <td data-label="Impact" class="risk-impact-cell medium">MEDIUM</td>
+                        <td data-label="Mitigation Strategy" class="notes-column risk-mitigation">Confirm storage arrangements with colleagues. Research multiple reputable car shipping companies and get quotes. Ensure car is insured during storage and transit.</td>
+                    </tr>
+                    <tr class="risk-impact-medium">
+                        <th scope="row" data-label="Risk">Infant Discomfort/Issues during Travel</th>
+                        <td data-label="Impact" class="risk-impact-cell medium">MEDIUM</td>
+                        <td data-label="Mitigation Strategy" class="notes-column risk-mitigation">Over-prepare infant travel bag. Prioritize rest at Airbnb. Be flexible with schedules. Consult pediatrician beforehand.</td>
+                    </tr>
+                    <tr class="risk-impact-medium">
+                        <th scope="row" data-label="Risk">Zippy Shell Delivery Delays</th>
+                        <td data-label="Impact" class="risk-impact-cell medium">MEDIUM</td>
+                        <td class="notes-column risk-mitigation">Maintain communication with Zippy Shell. Plan for essential items (basic clothing, toiletries, bedding) to be available if shipment is late.</td>
+                    </tr>
+                    <tr class="risk-impact-medium">
+                        <th scope="row" data-label="Risk">Time Zone Adjustment (Family)</th>
+                        <td data-label="Impact" class="risk-impact-cell medium">MEDIUM</td>
+                        <td class="notes-column risk-mitigation">Build in downtime, especially first 1-2 days. Encourage hydration. Early adjustment to new sleep schedule.</td>
+                    </tr>
+                    <tr class="risk-impact-medium">
+                        <th scope="row" data-label="Risk">**Delay in CA Vehicle Registration/Insurance**</th>
+                        <td data-label="Impact" class="risk-impact-cell medium">MEDIUM</td>
+                        <td data-label="Mitigation Strategy" class="notes-column risk-mitigation">Begin research on CA DMV requirements and insurance providers pre-move. Schedule DMV appointments online as soon as possible after arrival.</td>
+                    </tr>
+                    <tr class="risk-impact-low">
+                        <th scope="row" data-label="Risk">Missed SW Airlines Check-in</th>
+                        <td data-label="Impact" class="risk-impact-cell low">LOW</td>
+                        <td class="notes-column risk-mitigation">Set multiple alarms/reminders for 24-hour mark before flight departure (June 27th, 5 AM EST).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <footer class="footer">
+            <p><i class="fas fa-laptop-code" aria-hidden="true"></i> Designed for Executive Oversight. Continuous Monitoring Recommended.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Function to update live snapshot dynamically
+        function updateLiveSnapshot() {
+            const now = new Date();
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                timeZoneName: 'shortOffset'
+            };
+            document.getElementById('current-datetime').textContent = now.toLocaleString('en-US', options);
+        }
+
+        // Update immediately and then every second
+        updateLiveSnapshot();
+        setInterval(updateLiveSnapshot, 1000);
+
+        // Dark Mode Toggle functionality
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Check for saved theme preference in local storage
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+        } else if (savedTheme === 'light') {
+            body.classList.remove('dark-mode');
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            // If no preference saved, check system preference
+            body.classList.add('dark-mode');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Accordion functionality
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const contentId = header.dataset.target;
+                const content = document.getElementById(contentId);
+                const isExpanded = header.getAttribute('aria-expanded') === 'true';
+
+                // Close other open accordions
+                document.querySelectorAll('.accordion-content.open').forEach(openContent => {
+                    if (openContent.id !== contentId) {
+                        openContent.classList.remove('open');
+                        const prevHeader = openContent.previousElementSibling;
+                        if (prevHeader) {
+                            prevHeader.classList.remove('active');
+                            prevHeader.setAttribute('aria-expanded', 'false');
+                        }
+                    }
+                });
+
+                // Toggle current accordion
+                content.classList.toggle('open');
+                header.classList.toggle('active');
+                header.setAttribute('aria-expanded', !isExpanded);
+            });
+
+            // Add keyboard support for accordions
+            header.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault(); // Prevent default scroll behavior for spacebar
+                    header.click(); // Simulate a click
+                }
+            });
+        });
+
+        // Smooth scroll for timeline steps
+        document.querySelectorAll('.timeline-step').forEach(step => {
+            step.addEventListener('click', () => {
+                const targetSectionId = step.dataset.targetSection;
+                const targetSection = document.getElementById(targetSectionId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+
+            // Add keyboard support for timeline steps
+            step.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    step.click();
+                }
+            });
+        });
+
+        // Car Shipping Quote Calculator Logic
+        document.getElementById('get-quote-btn').addEventListener('click', () => {
+            const transportType = document.getElementById('transport-type').value;
+            const quoteResultDiv = document.getElementById('car-quote-result');
+            const quoteTextSpan = document.getElementById('quote-text');
+
+            let costRange = '';
+            // These ranges are approximate for a Mazda CX-5 from FL to CA
+            if (transportType === 'open') {
+                costRange = '$1,800 – $2,600'; 
+            } else { // enclosed
+                costRange = '$2,500 – $3,500';
+            }
+
+            quoteTextSpan.textContent = `Estimated Cost for your Mazda CX-5 (${transportType === 'open'? 'Open Carrier' : 'Enclosed Carrier'}): ${costRange}`;
+            quoteResultDiv.style.display = 'flex'; // Show the result
+        });
+    </script>
+
+</body>
+</html>
