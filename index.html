@@ -473,12 +473,21 @@
             background-color: var(--primary-blue);
             transform: translateY(-2px);
         }
+        .theme-toggle-button:active { /* Added active state */
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background-color: color-mix(in srgb, var(--primary-blue) 90%, black); /* Slightly darker on active */
+        }
         body.dark-mode .theme-toggle-button {
             background-color: #88ccee;
             color: #1a1a1a;
         }
         body.dark-mode .theme-toggle-button:hover {
             background-color: #66b3ff;
+        }
+        body.dark-mode .theme-toggle-button:active { /* Added active state for dark mode */
+            background-color: color-mix(in srgb, #66b3ff 90%, black);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
         body.dark-mode .theme-toggle-button:focus-visible {
             box-shadow: 0 0 0 3px #88ccee, 0 0 0 5px rgba(0, 0, 0, 0.5);
@@ -530,6 +539,10 @@
         .timeline-step:focus-visible { /* Custom focus style */
             box-shadow: 0 0 0 3px var(--secondary-blue);
             border-radius: 12px; /* Apply to the whole card */
+        }
+        .timeline-step:active { /* Added active state */
+            transform: translateY(-5px) scale(0.98);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .timeline-step:hover {
@@ -584,6 +597,9 @@
         body.dark-mode .timeline-step:focus-visible {
             box-shadow: 0 0 0 3px #88ccee;
         }
+        body.dark-mode .timeline-step:active { /* Added active state for dark mode */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
 
         /* Accordion Styles */
         .accordion-item {
@@ -620,6 +636,10 @@
         .accordion-header:focus-visible { /* Custom focus style */
             box-shadow: inset 0 0 0 3px var(--secondary-blue);
         }
+        .accordion-header:active { /* Added active state */
+            background-color: color-mix(in srgb, var(--card-bg) 90%, var(--primary-blue));
+            transform: translateY(1px); /* Slight press down */
+        }
         body.dark-mode .accordion-header {
             background-color: #2c2c2c;
             color: #66b3ff;
@@ -627,6 +647,9 @@
         }
         body.dark-mode .accordion-header:focus-visible {
             box-shadow: inset 0 0 0 3px #88ccee;
+        }
+        body.dark-mode .accordion-header:active { /* Added active state for dark mode */
+            background-color: color-mix(in srgb, #2c2c2c 90%, #66b3ff);
         }
         .accordion-header:hover {
             background-color: #F0F6F9;
@@ -885,12 +908,21 @@
             background-color: var(--primary-blue);
             transform: translateY(-2px);
         }
+        .action-button:active { /* Added active state */
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background-color: color-mix(in srgb, var(--primary-blue) 90%, black);
+        }
         body.dark-mode .action-button {
             background-color: #88ccee;
             color: #1a1a1a;
         }
         body.dark-mode .action-button:hover {
             background-color: #66b3ff;
+        }
+        body.dark-mode .action-button:active { /* Added active state for dark mode */
+            background-color: color-mix(in srgb, #66b3ff 90%, black);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
         body.dark-mode .action-button:focus-visible {
             box-shadow: 0 0 0 3px #88ccee, 0 0 0 5px rgba(0, 0, 0, 0.5);
@@ -984,12 +1016,21 @@
             background-color: var(--primary-blue);
             transform: translateY(-2px);
         }
+        .car-calculator-form button:active { /* Added active state */
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background-color: color-mix(in srgb, var(--primary-blue) 90%, black);
+        }
         body.dark-mode .car-calculator-form button {
             background-color: #88ccee;
             color: #1a1a1a;
         }
         body.dark-mode .car-calculator-form button:hover {
             background-color: #66b3ff;
+        }
+        body.dark-mode .car-calculator-form button:active { /* Added active state for dark mode */
+            background-color: color-mix(in srgb, #66b3ff 90%, black);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
         body.dark-mode .car-calculator-form button:focus-visible {
             box-shadow: 0 0 0 3px #88ccee, 0 0 0 5px rgba(0, 0, 0, 0.5);
@@ -1238,7 +1279,7 @@
                     <i class="fas fa-car" aria-hidden="true"></i>
                     <div class="info-card-content">
                         <strong>Rental Vehicle Duration</strong>
-                        <span>Booked for 12 Days (Confirmation Pending)</span>
+                        <span>Booked for 12 Days (Avis - Confirmed)</span>
                     </div>
                 </div>
             </div>
@@ -1471,38 +1512,32 @@
                     <tr>
                         <th scope="row" data-label="Milestone">**Confirm Car Rental Van (SJC)**</th>
                         <td data-label="Date" class="date-column">June 23, 2025 05:00 PM</td>
-                        <td data-label="Status"><span class="status-badge status-danger"><i class="fas fa-exclamation-circle" aria-hidden="true"></i> URGENT PENDING</span></td>
-                        <td data-label="Notes" class="notes-column">**CRITICAL:** Follow up relentlessly via Point C. Have direct rental agency backup plan. Rental for 12 days.</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" data-label="Milestone">Schedule Townhome Cleaning (FL)</th>
-                        <td data-label="Date" class="date-column">June 23, 2025 05:00 PM</td>
-                        <td data-label="Status"><span class="status-badge status-pending"><i class="fas fa-hourglass-half" aria-hidden="true"></i> Pending</span></td>
-                        <td data-label="Notes" class="notes-column">Must be completed *before* June 25th rental paperwork.</td>
+                        <td data-label="Status"><span class="status-badge status-success"><i class="fas fa-check-circle" aria-hidden="true"></i> Completed</span></td>
+                        <td data-label="Notes" class="notes-column">Rental car from Avis confirmed for 12 days.</td>
                     </tr>
                     <tr>
                         <th scope="row" data-label="Milestone">Prepare for FL Rental Paperwork</th>
-                        <td data-label="Date" class="date-column">June 24, 2025 05:00 PM</td>
+                        <td data-label="Date" class="date-column">June 25, 2025 09:30 AM EST</td>
                         <td data-label="Status"><span class="status-badge status-pending"><i class="fas fa-hourglass-half" aria-hidden="true"></i> Pending</span></td>
-                        <td data-label="Notes" class="notes-column">Gather all necessary documents for Crystal's visit.</td>
+                        <td data-label="Notes" class="notes-column">Scheduled visit with Crystal for finalization.</td>
                     </tr>
                     <tr>
                         <th scope="row" data-label="Milestone">Zippy Shell Pickup (FL)</th>
                         <td data-label="Date" class="date-column">June 24, 2025</td>
                         <td data-label="Status"><span class="status-badge status-success"><i class="fas fa-check-circle" aria-hidden="true"></i> On Track</span></td>
-                        <td data-label="Notes" class="notes-column">Packed & Ready</td>
-                    </tr>
-                     <tr>
-                        <th scope="row" data-label="Milestone">Land O' Lakes Rental Paperwork Finalized</th>
-                        <td data-label="Date" class="date-column">June 25, 2025</td>
-                        <td data-label="Status"><span class="status-badge status-pending"><i class="fas fa-hourglass-half" aria-hidden="true"></i> Pending</span></td>
-                        <td data-label="Notes" class="notes-column">Crystal's visit confirmed.</td>
+                        <td data-label="Notes" class="notes-column">Scheduled @9 AM EST and would complete by 1 PM EST.</td>
                     </tr>
                     <tr>
                         <th scope="row" data-label="Milestone">**SW Airlines Online Check-in**</th>
                         <td data-label="Date" class="date-column">June 27, 2025 05:00 AM</td>
                         <td data-label="Status"><span class="status-badge status-info"><i class="fas fa-check-double" aria-hidden="true"></i> Due Soon</span></td>
                         <td data-label="Notes" class="notes-column">Check-in exactly 24 hours before 5 AM EST flight. Get boarding passes ready.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">Scheduled Townhome Cleaning (FL)</th>
+                        <td data-label="Date" class="date-column">June 27, 2025 01:30 PM EST</td>
+                        <td data-label="Status"><span class="status-badge status-pending"><i class="fas fa-hourglass-half" aria-hidden="true"></i> Pending</span></td>
+                        <td data-label="Notes" class="notes-column">Scheduled for 3 hours.</td>
                     </tr>
                     <tr>
                         <th scope="row" data-label="Milestone">Secure Essential Docs/Valuables (Carry-On)</th>
@@ -1531,8 +1566,8 @@
                     <tr>
                         <th scope="row" data-label="Milestone">SJC Arrival & Car Rental Pickup</th>
                         <td data-label="Date" class="date-column">June 28, 2025</td>
-                        <td data-label="Status"><span class="status-badge status-at-risk"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> At Risk</span></td>
-                        <td data-label="Notes" class="notes-column">**CRITICAL: CAR RENTAL CONFIRMATION PENDING (12 Days).**</td>
+                        <td data-label="Status"><span class="status-badge status-success"><i class="fas fa-check-circle" aria-hidden="true"></i> Completed</span></td>
+                        <td data-label="Notes" class="notes-column">Rental car from Avis confirmed for 12 days.</td>
                     </tr>
                     <tr>
                         <th scope="row" data-label="Milestone">Airbnb Check-in</th>
@@ -1567,14 +1602,14 @@
                     <tr>
                         <th scope="row" data-label="Milestone">Utilities Activation (Electric/Gas)</th>
                         <td data-label="Date" class="date-column">July 1, 2025</td>
-                        <td data-label="Status"><span class="status-badge status-at-risk"><i class="fas fa-bolt" aria-hidden="true"></i> At Risk</span></td>
-                        <td data-label="Notes" class="notes-column">**CRITICAL for apartment move-in. Action pending.**</td>
+                        <td data-label="Status"><span class="status-badge status-success"><i class="fas fa-check-circle" aria-hidden="true"></i> Completed</span></td>
+                        <td data-label="Notes" class="notes-column">All utilities (Electric & Gas) are active.</td>
                     </tr>
                      <tr>
                         <th scope="row" data-label="Milestone">Renter's Insurance Obtained</th>
                         <td data-label="Date" class="date-column">July 1, 2025</td>
-                        <td data-label="Status"><span class="status-badge status-at-risk"><i class="fas fa-shield-alt" aria-hidden="true"></i> At Risk</span></td>
-                        <td data-label="Notes" class="notes-column">**CRITICAL: NO MOVE-IN WITHOUT THIS.**</td>
+                        <td data-label="Status"><span class="status-badge status-success"><i class="fas fa-check-circle" aria-hidden="true"></i> Completed</span></td>
+                        <td data-label="Notes" class="notes-column">Policy obtained and confirmed.</td>
                     </tr>
                     <tr>
                         <th scope="row" data-label="Milestone">**Setup California Internet/Cable**</th>
@@ -1641,6 +1676,12 @@
                         <td data-label="Date" class="date-column">Aug 30, 2025 (Target)</td>
                         <td data-label="Status"><span class="status-badge status-danger"><i class="fas fa-exclamation-circle" aria-hidden="true"></i> URGENT PENDING</span></td>
                         <td data-label="Notes" class="notes-column">Cancel Orlando flight. Coordinate new flight from SFO to Bangalore for Wife's Mother.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Milestone">**DS160, Visa Appointment Booking (Ganesh & Chandana)**</th>
+                        <td data-label="Date" class="date-column">TBD</td>
+                        <td data-label="Status"><span class="status-badge status-pending"><i class="fas fa-hourglass-half" aria-hidden="true"></i> Pending</span></td>
+                        <td data-label="Notes" class="notes-column">Booking DS160 and interview slots for Ganesh Gujjar and Chandana.</td>
                     </tr>
                     <tr>
                         <th scope="row" data-label="Milestone">**LCA Amendment Status Check (Husband)**</th>
@@ -1720,6 +1761,12 @@
                         <td data-label="Phone Number"><a href="tel:+18007773999" class="phone-link">800-777-3999</a></td> <!-- US toll-free number -->
                         <td data-label="Available Hours (PST)">24/7</td>
                         <td data-label="Notes" class="notes-column">For flight rescheduling/support.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" data-label="Service/Contact">Visa Appointment / Immigration Support (Ganesh & Chandana)</th>
+                        <td data-label="Phone Number">N/A</td>
+                        <td data-label="Available Hours (PST)">N/A</td>
+                        <td data-label="Notes" class="notes-column">For DS160 and visa interview scheduling.</td>
                     </tr>
                 </tbody>
             </table>
